@@ -6,81 +6,73 @@ O **PostVision** é um aplicativo desenvolvido em **Next.js** que utiliza **vis�
 
 ---
 
-## Como executar o projeto
+## Arquitetura do Projeto
+
+| Camada | Tecnologia | Hospedagem |
+| --- | --- | --- |
+| **Frontend** | Next.js (App Router) | Vercel |
+| **API** | Node.js + Express | Render |
+| **Banco de dados** | MongoDB | MongoDB Atlas |
+
+O frontend se comunica exclusivamente com a API hospedada no Render. A API é responsável por toda a lógica de negócio e acesso ao banco.
+
+---
+
+## Acesso
+
+A aplicação está disponível em produção na Vercel:
+**[postvision.vercel.app](https://postvision.vercel.app)**
+
+---
+
+## Como executar localmente
 
 ### 1. Clone o repositório
 
 ```bash
 git clone https://github.com/renanzanettio/web-postvision.git
-
+cd web-postvision
 ```
 
-### 2. Inicie o servidor de banco de dados
+### 2. Configure as variáveis de ambiente
 
-- Abra o **XAMPP** e ative o módulo **MySQL**.
-- Inicie o banco de dados pelo **HeidiSQL** ou **MySQL Workbench**.
-
-### 3. Importe o banco de dados
-
-Na raiz do projeto existe o arquivo `postvision.sql`.
-
-Importe-o para o seu servidor MySQL para criar as tabelas e dados necessários.
-
-Dica: No HeidiSQL, clique com o botão direito sobre o banco de dados e selecione **Executar SQL**, depois carregue o arquivo `postvision.sql`.
-
----
-
-### 4. Configure o arquivo `.env`
-
-Renomeie o arquivo:
+Crie um arquivo `.env.local` na raiz do projeto com base no `.env.example`:
 
 ```bash
-.env-RENAME → .env
-
+cp .env.example .env.local
 ```
 
-Dentro dele há a variável de conexão com o banco:
+Preencha as variáveis:
 
-```
-DATABASE_URL="mysql://root@localhost:3306/postvision"
+```env
+# URL da API (postvision-api)
+# Em desenvolvimento: endereço local da API
+# Em produção: URL do serviço no Render
+NEXT_PUBLIC_API_URL=http://localhost:4000
 
-```
-
-Se o seu MySQL tiver senha ou porta diferente, altere conforme necessário:
-
-- `root` → nome do seu usuário MySQL
-- `localhost` → endereço do servidor
-- `3306` → porta do MySQL
-- `postvision` → nome do banco criado
-
-Exemplo:
-
-```
-DATABASE_URL="mysql://usuario:minhasenha@localhost:3307/postvision"
-
+# Segredo JWT (deve ser igual ao configurado na postvision-api)
+JWT_SECRET=seu_jwt_secret_aqui
 ```
 
----
+> **Atenção:** `NEXT_PUBLIC_API_URL` é lida em **build time**. Sempre que alterar esse valor em produção, é necessário fazer um novo deploy para que a mudança entre em vigor.
 
-### 5. Instale as dependências
+### 3. Instale as dependências
 
 ```bash
 npm install
-
 ```
 
----
-
-### 6. Execute o projeto
+### 4. Execute o projeto
 
 ```bash
 npm run dev
-
 ```
 
 O servidor será iniciado em:
 
 http://localhost:3000
+
+> Certifique-se de que a [postvision-api](https://github.com/renanzanettio/postvision-api) também está rodando localmente ou aponte `NEXT_PUBLIC_API_URL` para o serviço no Render.
 
 ---
 
@@ -88,20 +80,14 @@ http://localhost:3000
 
 | Tecnologia | Descrição |
 | --- | --- |
-| **Next.js** | Framework React moderno, com renderização híbrida (SSR e SSG). |
+| **Next.js** | Framework React com renderização híbrida (SSR e SSG). |
 | **TypeScript** | Tipagem estática e segurança no desenvolvimento. |
-| **MySQL + Prisma ORM** | Banco de dados relacional com ORM moderno e intuitivo. |
-| **Node.js** | Ambiente de execução JavaScript para o backend. |
+| **Node.js + Express** | Backend da API hospedado no Render. |
+| **MongoDB Atlas** | Banco de dados NoSQL em nuvem. |
 
 ---
 
 ## Principais Bibliotecas
-
-### Prisma
-
-ORM que facilita a integração com o banco de dados MySQL, permitindo gerar o cliente automaticamente e realizar migrações com segurança.
-
-Usado para autenticação, cadastro e gerenciamento de usuários.
 
 ### bcryptjs
 
