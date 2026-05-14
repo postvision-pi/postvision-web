@@ -33,10 +33,20 @@
   height: 250px !important;
 }
 
+
+
 @media (max-width: 600px) {
+  .lineChart{
+    margin-left: -20px !important;
+    width: 100% !important;
+    height: 200px !important;
+  }
+
   .graphContainer {
+    max-width: 580px !important;
     width: 90% !important;
-    transform: scale(0.75) translateX(-15%);
-    margin-top: -50px;
+    min-width: 340px !important;
+    max-height: 300px !important;
+    min-height: 300px !important;
   }
 }

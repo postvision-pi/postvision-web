@@ -3,13 +3,14 @@ import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "../globals.css";
 import ClientLayout from "../components/ClientLayout";
 import Menu from "../components/Menu/Menu";
-import RightBoard from "../components/RightBoard/RightBoard";
-import { UserProvider } from "./UserContext"; // <-- import do Context pasra  puxar os dadosdo usuario
+import { UserProvider } from "./UserContext";
+import { SessionProvider } from "./SessionContext";
+import { NotificationProvider } from "./NotificationContext";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-montserrat', 
+  variable: '--font-montserrat',
   display: 'swap',
 });
 
@@ -35,12 +36,16 @@ export default function RootLayout({
 }>) {
   return (
     <UserProvider>
-      <div className={`${montserrat.variable} ${geistSans.variable} ${geistMono.variable}`}>
-        <ClientLayout>
-          <Menu />
-          {children}
-        </ClientLayout>
-      </div>
+      <SessionProvider>
+        <NotificationProvider>
+          <div className={`${montserrat.variable} ${geistSans.variable} ${geistMono.variable}`}>
+            <ClientLayout>
+              <Menu />
+              {children}
+            </ClientLayout>
+          </div>
+        </NotificationProvider>
+      </SessionProvider>
     </UserProvider>
   );
 }

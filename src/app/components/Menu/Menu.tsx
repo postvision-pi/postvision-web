@@ -5,30 +5,21 @@ import { Icon } from '@iconify/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { clearToken } from '@/lib/api';
 
 export default function Menu() {
     const router = useRouter();
 
-    async function handleLogOut() {
-        try {
-            await fetch('/api/auth/logout', {
-                method: 'POST',
-                credentials: 'include', // garante que o cookie seja enviado
-        });
-
-        // redireciona para a pagina de login após o logout
+    function handleLogOut() {
+        // Limpa o token do localStorage e expira o cookie
+        clearToken();
         router.push('/Entrar');
-        } catch (err) {
-            console.error('Erro ao fazer logout:', err);
-            alert('Erro ao fazer logout. Tente novamente.');
-        }
-
     }
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const pathname = usePathname();
-    return(
+    return (
         <div className={styles.menuContent}>
             <div onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.menuIconContainer}>
                 <Icon icon="material-symbols:menu-rounded" className={styles.menuIcon} />
@@ -39,18 +30,20 @@ export default function Menu() {
             <div className={`${styles.menuContainer} ${isMenuOpen ? styles.menuContainerOpen : ''}`} onClick={e => e.stopPropagation()}>
                 <Link href="/" className={styles.titleMenu}>PostVision</Link>
                 <div className={styles.menuLinks}>
-                    <Link href="/Status" className={`${styles.link} ${pathname === '/Status' ? styles.active : ''}`}> 
-                    <Icon icon="gridicons:stats" className={styles.statsIcon} />Status
+                    <Link href="/Status" className={`${styles.link} ${pathname === '/Status' ? styles.active : ''}`}>
+                        <Icon icon="gridicons:stats" className={styles.statsIcon} />Status
                     </Link>
-                    <Link href="/Profile" className={`${styles.link} ${pathname === '/Profile' ? styles.active : ''}`}> 
-                    <Icon icon="iconamoon:profile-fill" className={styles.profileIcon}/>Profile
+                    <Link href="/Profile" className={`${styles.link} ${pathname === '/Profile' ? styles.active : ''}`}>
+                        <Icon icon="iconamoon:profile-fill" className={styles.profileIcon} />Profile
                     </Link>
-                    <Link href="/Camera" className={`${styles.link} ${pathname === '/Camera' ? styles.active : ''}`}> 
-                    <Icon icon="mdi:camera" className={styles.profileIcon}/>Camera
+                    <Link href="/Camera" className={`${styles.link} ${pathname === '/Camera' ? styles.active : ''}`}>
+                        <Icon icon="mdi:camera" className={styles.profileIcon} />Camera
                     </Link>
                 </div>
-                <button onClick={handleLogOut} className={styles.logoutContainer}><Icon icon="ri:logout-box-line" className={styles.logoutButton} /></button>
+                <button onClick={handleLogOut} className={styles.logoutContainer}>
+                    <Icon icon="ri:logout-box-line" className={styles.logoutButton} />
+                </button>
             </div>
         </div>
-    )
+    );
 }

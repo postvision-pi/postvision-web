@@ -1,3 +1,4 @@
+"use client";
 import styles from "./Settings.module.css";
 import RightBoard from "../../components/RightBoard/RightBoard";
 import { Icon } from "@iconify/react";

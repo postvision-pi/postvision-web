@@ -1,0 +1,48 @@
+.graphContainer {
+  padding: 1rem 1.5rem;
+  width: 100%;
+  min-height: 300px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.chart {
+  position: relative;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.centerText {
+  position: absolute;
+  display: flex;
+  top: 41%;
+  left: 30.5%;
+  min-width: 100px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #1b0066;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .graphContainer {
+    width: 100% !important;
+  }
+}

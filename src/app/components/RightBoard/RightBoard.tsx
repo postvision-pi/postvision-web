@@ -1,3 +1,4 @@
+"use client";
 import styles from "./RightBoard.module.css";
 import StreakCalendar from "../StreakCalendar/SteakCalendar";
 import AverageRow from "../AverageRow/AverageRow";

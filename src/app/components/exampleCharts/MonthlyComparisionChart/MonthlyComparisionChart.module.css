@@ -1,0 +1,37 @@
+.graphContainer {
+  padding: 1rem 1.5rem;
+  width: 100%;
+  min-height: 300px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.chart {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.lineChart {
+  width: 100% !important;
+  height: 220px !important;
+}
+
+@media (max-width: 600px) {
+  .graphContainer {
+    width: 100% !important;
+  }
+}

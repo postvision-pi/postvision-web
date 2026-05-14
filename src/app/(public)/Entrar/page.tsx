@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { apiLogin, saveToken, decodeTokenPayload } from "@/lib/api";
 
 export default function Entrar() {
   const [email, setEmail] = useState("");
@@ -22,16 +23,7 @@ export default function Entrar() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userEmail: email,
-          userPassword: password,
-        }),
-        credentials: "include",
-      });
-
+      const res = await apiLogin(email, password);
       const data = await res.json();
 
       if (!res.ok) {
@@ -40,10 +32,25 @@ export default function Entrar() {
         return;
       }
 
-      // localStorage.setItem("token", data.token);
-      localStorage.setItem("usuario", JSON.stringify(data.usuario)); // só dados do usuário
+      // Salva o token no localStorage e no cookie (para o middleware)
+      saveToken(data.token);
 
-      // Redireciona para a página protegida
+      // Decodifica o payload do JWT para obter os dados do usuário
+      const payload = decodeTokenPayload<{
+        id_usuario: string;
+        nome_usuario: string;
+        sobrenome_usuario: string;
+        email_usuario: string;
+        cpf_usuario: string;
+        genero_usuario: string;
+        telefone_usuario: string;
+        data_nascimento_usuario: string;
+      }>(data.token);
+
+      if (payload) {
+        localStorage.setItem("usuario", JSON.stringify(payload));
+      }
+
       router.push("/Status");
     } catch (err) {
       console.error("Erro no login:", err);

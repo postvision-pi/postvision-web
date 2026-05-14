@@ -1,3 +1,4 @@
+"use client";
 import styles from "./AverageRow.module.css";
 
 export default function AverageRow() {

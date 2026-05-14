@@ -88,10 +88,15 @@
 
 @media (max-width: 600px) {
 
+
+
   .mainContainer {
-    margin-left: 0;
-    width: 100%;
+    margin-left: 0px;
+    max-width: 100%;
+    min-width: 100%;
     padding-inline: 0.2rem;
+    overflow-x: visible !important;
+    transform: scale(0.9);
   }
 
   .statusContainer {
@@ -114,6 +119,8 @@
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
+    overflow-x:visible !important;
+
   }
 
   

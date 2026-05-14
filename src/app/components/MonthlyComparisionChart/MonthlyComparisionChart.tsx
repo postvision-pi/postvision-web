@@ -1,5 +1,6 @@
 "use client";
 import styles from "./MonthlyComparisionChart.module.css";
+import { useSession } from "@/app/(dashboard)/SessionContext";
 
 import {
   LineChart,
@@ -11,24 +12,21 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const data = [
-  { dia: 1, agachamentos: 30 },
-  { dia: 5, agachamentos: 45 },
-  { dia: 10, agachamentos: 60 },
-  { dia: 15, agachamentos: 68 },
-  { dia: 20, agachamentos: 75 },
-  { dia: 25, agachamentos: 80 },
-  { dia: 30, agachamentos: 92 },
-];
-
 export default function MonthlyComparisionChart() {
+  const { stats } = useSession();
+
+  const chartData = stats?.monthly.map((item) => ({
+    dia: Number(item.date.split("-")[2]),
+    agachamentos: item.totalReps,
+  })) ?? [];
+
   return (
     <div className={styles.graphContainer}>
       <div className={styles.title}>Comparativo Mensal</div>
       <div className={styles.subtitle}>Agachamento</div>
       <div className={styles.chart}>
         <ResponsiveContainer className={styles.lineChart}>
-          <LineChart data={data}>
+          <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
             <XAxis dataKey="dia" />
             <YAxis />

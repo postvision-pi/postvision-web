@@ -9,6 +9,7 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { apiRegister } from "@/lib/api";
 
 export default function Cadastro() {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +35,6 @@ export default function Cadastro() {
     e.preventDefault();
     setLoading(true);
 
-    // Validação básica
     const { firstName, lastName, birthDate, gender, cpf, email, phone, password } = formData;
     if (!firstName || !lastName || !birthDate || !gender || !cpf || !email || !phone || !password) {
       alert("Todos os campos são obrigatórios!");
@@ -43,12 +43,7 @@ export default function Cadastro() {
     }
 
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
+      const res = await apiRegister(formData);
       const data = await res.json();
 
       if (!res.ok) {
@@ -58,7 +53,7 @@ export default function Cadastro() {
       }
 
       alert("Cadastro realizado com sucesso!");
-      router.push("/Entrar"); // redireciona para login
+      router.push("/Entrar");
     } catch (err) {
       console.error("Erro no cadastro:", err);
       alert("Erro no servidor");
@@ -94,7 +89,6 @@ export default function Cadastro() {
         <form className={styles.signUpFormBox} onSubmit={handleSubmit}>
           <div className={styles.signUpTitle}>Cadastro</div>
 
-          {/* Nome e Sobrenome */}
           <div className={styles.signUpRow}>
             <div className={styles.signUpInputGroup}>
               <label htmlFor="firstName">Nome</label>
@@ -106,13 +100,11 @@ export default function Cadastro() {
             </div>
           </div>
 
-          {/* Data de Nascimento, Gênero e CPF */}
           <div className={styles.signUpRow}>
             <div className={styles.signUpInputGroup}>
               <label htmlFor="birthDate">Data de Nascimento</label>
               <input id="birthDate" type="date" value={formData.birthDate} onChange={handleChange} />
             </div>
-
             <div className={styles.signUpInputGroup}>
               <label htmlFor="gender">Gênero</label>
               <select id="gender" value={formData.gender} onChange={handleChange} className={`${styles.signUpInput} ${styles.signUpSelect}`}>
@@ -122,27 +114,23 @@ export default function Cadastro() {
                 <option value="Outros">Outros</option>
               </select>
             </div>
-
             <div className={styles.signUpInputGroup}>
               <label htmlFor="cpf">CPF</label>
               <input id="cpf" type="text" placeholder="190.203.400-14" value={formData.cpf} onChange={handleChange} />
             </div>
           </div>
 
-          {/* Email e Telefone */}
           <div className={styles.signUpRow}>
             <div className={styles.signUpInputGroup}>
               <label htmlFor="email">Email</label>
               <input id="email" type="email" placeholder="email@gmail.com" value={formData.email} onChange={handleChange} />
             </div>
-
             <div className={styles.signUpInputGroup}>
               <label htmlFor="phone">Telefone</label>
               <input id="phone" type="text" placeholder="13 997311644" value={formData.phone} onChange={handleChange} />
             </div>
           </div>
 
-          {/* Senha */}
           <div className={styles.signUpInputGroup}>
             <label htmlFor="password">Senha</label>
             <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
