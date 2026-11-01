@@ -151,7 +151,7 @@ export default function Home() {
           </div>
 
           {/* App showcase */}
-          <div className="grid md:grid-cols-2 gap-10 items-center mb-16">
+          <div className="grid md:grid-cols-2 gap-10 items-center mb-16" id="Aplicativo">
             <div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Veja sua evolução na prática</h3>
               <p className="text-[#333333] text-sm mb-6">
@@ -182,7 +182,7 @@ export default function Home() {
           </div>
 
           {/* Charts accordion */}
-          <div className="rounded-2xl overflow-hidden border border-slate-200">
+          <div className="rounded-2xl overflow-hidden border border-slate-200" id="Analises">
             {/* Accordion header — always visible */}
             <button
               onClick={() => setChartsOpen((prev) => !prev)}

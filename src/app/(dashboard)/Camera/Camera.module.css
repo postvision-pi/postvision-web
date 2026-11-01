@@ -31,11 +31,11 @@
 .card {
 	width: 100%;
 	max-width: 880px;
-	background: #ffffff;
+	background: var(--white);
 	color: var(--foreground, #171717);
 	border-radius: 12px;
 	padding: 1.5rem;
-	box-shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+	box-shadow: var(--shadow-sm);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -103,6 +103,41 @@
 
 	.title {
 		font-size: 1.125rem;
+	}
+}
+
+@media (max-width: 900px) {
+	.mainContainer {
+		margin-left: 0;
+		width: 100%;
+		padding: 16px;
+	}
+}
+
+@media (max-width: 600px) {
+	.reverseContainer {
+		flex-direction: column-reverse;
+		height: fit-content;
+		min-height: 100vh;
+		justify-content: flex-end;
+		padding-bottom: 2rem;
+	}
+
+	.mainContainer {
+		margin-left: 0;
+		width: 100%;
+		padding: 16px;
+		align-items: center;
+		overflow-y: visible;
+	}
+
+	.card {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.canvas {
+		max-width: 100%;
 	}
 }
 

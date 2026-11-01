@@ -27,6 +27,8 @@ export default function LastTrainingCharts() {
           <PieChart>
             <Pie
               data={data}
+              cx="38%"
+              cy="50%"
               innerRadius={50}
               outerRadius={90}
               dataKey="value"

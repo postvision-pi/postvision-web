@@ -14,7 +14,7 @@
   & .titleMenu {
     font-size: 1.7rem;
     font-weight: bold;
-    color: var(--secundary-purple-500);
+    color: var(--brand-accent);
     margin-bottom: 1rem;
   }
 
@@ -76,7 +76,7 @@
     width: 1.7rem;
     height: 1.7rem;
     bottom: 1.5rem;
-    color: #000;
+    color: var(--highlight-black-500);
     transition: 200ms ease-in;
 
 
@@ -110,7 +110,7 @@
 
   .menuIcon {
     display: block;
-    color: var(--secundary-purple-500);
+    color: var(--brand-accent);
     width: 34px;
     height: 34px;
     position: relative;
@@ -125,7 +125,7 @@
     width: 34px !important;
     height: 34px !important;
     cursor: pointer;
-    color: var(--secundary-purple-500);
+    color: var(--brand-accent);
     background: transparent;
     align-items: center;
     justify-content: center;
@@ -139,17 +139,27 @@
   }
 
   .menuContainer {
-    display: none;
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 240px;
+    max-width: 78vw;
+    background: var(--white);
+    border: none;
+    border-radius: 0 20px 20px 0;
     padding: 1rem;
+    box-shadow: 6px 0 24px rgba(0, 0, 0, 0.18);
     z-index: 1200;
+    transform: translateX(-100%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
   }
 
   .menuContainerOpen {
-    display: flex;
-    z-index: 1200;
+    transform: translateX(0);
+    pointer-events: auto;
   }
   
 
@@ -160,7 +170,17 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.35);
     z-index: 1199;
+    animation: menuOverlayFadeIn 0.3s ease;
+  }
+
+  @keyframes menuOverlayFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }

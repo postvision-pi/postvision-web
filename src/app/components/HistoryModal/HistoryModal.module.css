@@ -1,0 +1,140 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal {
+    width: 100%;
+    max-width: 480px;
+    max-height: 80vh;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid var(--primary-offwhite-400);
+    flex-shrink: 0;
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--highlight-black-500);
+}
+
+.closeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--highlight-black-700);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.closeButton:hover {
+    background-color: var(--primary-offwhite-500);
+}
+
+.body {
+    padding: 1rem 1.25rem 1.25rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.message {
+    text-align: center;
+    color: var(--highlight-black-700);
+    padding: 2rem 0;
+    font-size: 0.95rem;
+}
+
+.sessionCard {
+    background: var(--primary-offwhite-500);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.sessionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sessionExercise {
+    font-weight: 600;
+    color: var(--highlight-black-500);
+}
+
+.sessionDate {
+    font-size: 0.85rem;
+    color: var(--highlight-black-700);
+}
+
+.sessionStats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    font-size: 0.85rem;
+    color: var(--highlight-black-700);
+}
+
+.correct {
+    color: var(--secundary-purple-600);
+}
+
+.incorrect {
+    color: #c0392b;
+}
+
+@media (max-width: 600px) {
+    .modal {
+        max-height: 85vh;
+    }
+}

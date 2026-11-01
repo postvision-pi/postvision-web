@@ -41,28 +41,38 @@
     gap: 10px;
 
     & .button{
-      border: 1px solid #000;
+      border: 1px solid transparent;
       padding: 8px 16px;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       font-weight: 500;
       text-decoration: none;
-      transition: 0.3s ease;
+      transition: 0.2s ease;
       cursor: pointer;
 
       &:hover {
         transform: scale(1.05);
-        transition: 0.3s ease;
+        transition: 0.2s ease;
       }
     }
 
     & .login {
-      border: 1px solid var(--secundary-purple-500);
+      border: 1.5px solid var(--secundary-purple-500);
       color: var(--secundary-purple-500);
+      background-color: transparent;
+
+      &:hover {
+        background-color: var(--secundary-purple-950);
+      }
     }
 
     & .signup {
       background-color: var(--secundary-purple-500);
       color: var(--white);
+      box-shadow: var(--shadow-sm);
+
+      &:hover {
+        background-color: var(--secundary-purple-600);
+      }
     }
 
   }
@@ -77,6 +87,21 @@
 
   .navbar {
     padding: 12px 5%;
+  }
+
+  .logo {
+    height: 56px;
+    font-size: 18px;
+    gap: 6px !important;
+  }
+
+  .navButtons {
+    gap: 8px !important;
+  }
+
+  .navButtons .button {
+    padding: 6px 12px !important;
+    font-size: 0.85rem;
   }
 
   .navLinks {

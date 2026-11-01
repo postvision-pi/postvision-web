@@ -242,7 +242,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <RightBoard />
+      <RightBoard hideStatsOnMobile />
     </div>
   );
 }

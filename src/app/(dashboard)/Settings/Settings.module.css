@@ -65,6 +65,21 @@
         padding: 10px 16px;
         border-radius: 10px;
         background-color: var(--white);
+        border: none;
+        text-align: left;
+        text-decoration: none;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+
+        &:hover {
+          background-color: var(--primary-offwhite-500);
+        }
+
+        &:disabled {
+          cursor: default;
+          opacity: 0.7;
+        }
 
         & .optionText {
           font-size: 1rem;
@@ -103,7 +118,112 @@
             color: var(--highlight-black-700);
           }
         }
+
+        & .themeSwitch {
+          display: flex;
+          gap: 6px;
+          background-color: var(--primary-offwhite-500);
+          padding: 4px;
+          border-radius: 999px;
+        }
+
+        & .themeButton {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: none;
+          background: transparent;
+          color: var(--highlight-black-700);
+          cursor: pointer;
+          transition: background-color 0.15s ease, color 0.15s ease;
+
+          & .icon {
+            width: 18px;
+            height: 18px;
+          }
+        }
+
+        & .themeButtonActive {
+          background-color: var(--secundary-purple-500);
+          color: var(--white);
+        }
+
+        & .select {
+          border: 1px solid var(--primary-offwhite-500);
+          background-color: var(--primary-offwhite-500);
+          color: var(--highlight-black-700);
+          font-family: inherit;
+          font-size: 0.95rem;
+          font-weight: 500;
+          padding: 8px 12px;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+
+        & .supportEmail {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: var(--secundary-purple-500);
+        }
     }
 
+  }
+}
+
+@media (max-width: 900px) {
+  .mainContainer {
+    margin-left: 0;
+    width: 100%;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .reverseContainer {
+    flex-direction: column-reverse;
+    height: fit-content;
+    min-height: 100vh;
+    justify-content: flex-end;
+    padding-bottom: 2rem;
+  }
+
+  .mainContainer {
+    margin-left: 0;
+    width: 100%;
+    padding: 16px;
+    overflow-y: visible;
+  }
+
+  .settingsContainer {
+    width: 100%;
+    padding: 0;
+    gap: 1.6rem;
+  }
+
+  .settingsContainer .title {
+    font-size: 1.25rem;
+  }
+
+  .settingsContainer .section .title {
+    font-size: 1.05rem;
+  }
+
+  .optionContainer {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .optionContainer .optionText {
+    font-size: 0.9rem;
+  }
+
+  .switch {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px !important;
   }
 }

@@ -1,19 +1,41 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from "./NotificationArea.module.css";
 import { Icon } from "@iconify/react";
 import { useNotifications } from "@/app/(dashboard)/NotificationContext";
 
 export default function NotificationArea() {
     const [notificationOpen, setNotificationOpen] = useState(false);
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     const { notifications, loading, markAsRead } = useNotifications();
 
     const unreadCount = notifications.filter(n => !n.read).length;
 
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent | TouchEvent) {
+            if (
+                wrapperRef.current &&
+                !wrapperRef.current.contains(event.target as Node)
+            ) {
+                setNotificationOpen(false);
+            }
+        }
+
+        if (notificationOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("touchstart", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, [notificationOpen]);
+
     return (
-        <>
+        <div className={styles.notificationWrapper} ref={wrapperRef}>
             <div
                 className={styles.notificationContainer}
                 onClick={() => setNotificationOpen(!notificationOpen)}
@@ -59,6 +81,6 @@ export default function NotificationArea() {
                     ))}
                 </div>
             )}
-        </>
+        </div>
     );
 }

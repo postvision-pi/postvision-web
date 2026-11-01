@@ -1,21 +1,20 @@
-// Helper centralizado para chamadas à postvision-api externa
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_URL = '/api';
 
-/** Retorna o token armazenado no localStorage (só funciona no browser) */
+
 export function getToken(): string | null {
   if (typeof window === 'undefined') return null;
   return localStorage.getItem('token');
 }
 
-/** Salva o token no localStorage e num cookie acessível ao middleware */
+
 export function saveToken(token: string) {
   localStorage.setItem('token', token);
   // Cookie lido pelo middleware Next.js para proteger rotas
   document.cookie = `token=${token}; path=/; SameSite=Strict; max-age=${60 * 60 * 24 * 2}`;
 }
 
-/** Remove o token do localStorage e expira o cookie */
+
 export function clearToken() {
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');
@@ -81,9 +80,18 @@ export async function apiUpdateUser(id: string, data: Record<string, string>) {
 }
 
 
-/** GET /user/:id — obtém dados de sessão de treino do usuário */
+/** GET /session/stats/:userId — estatísticas calculadas do usuário */
 export async function apiGetSessionStatsByUserId(id: string) {
   const res = await fetch(`${API_URL}/session/stats/${id}`, {
+    method: 'GET',
+    headers: authHeaders(),
+  });
+  return res;
+}
+
+/** GET /session/:userId — lista as sessões de treino do usuário */
+export async function apiGetSessionsByUserId(id: string) {
+  const res = await fetch(`${API_URL}/session/${id}`, {
     method: 'GET',
     headers: authHeaders(),
   });

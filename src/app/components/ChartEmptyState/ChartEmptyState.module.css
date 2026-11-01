@@ -1,0 +1,29 @@
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    height: 250px;
+    text-align: center;
+    padding: 0 1.5rem;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    color: var(--highlight-black-800);
+}
+
+.text {
+    font-size: 0.9rem;
+    color: var(--highlight-black-700);
+    max-width: 320px;
+    line-height: 1.4;
+}
+
+@media (max-width: 600px) {
+    .emptyState {
+        height: 200px;
+    }
+}

@@ -13,10 +13,10 @@
     justify-content: center;
     width: 35%;
     height: 100px;
-    gap: 10px;
-    background-color: #fff;
+    gap: 6px;
+    background-color: var(--white);
     border-radius: 10px;
-    box-shadow: 0px 2px 8px #00000010;
+    box-shadow: var(--shadow-sm);
 
     & .title{
         font-size: 0.9rem;
@@ -29,6 +29,13 @@
         font-weight: 400;
         color: var(--highlight-black-800);
     }
+
+    & .emptyHint {
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: var(--highlight-black-800);
+        text-align: center;
+    }
 }
 
 .sessionAverage {
@@ -38,9 +45,9 @@
     justify-content: center;
     width: 62%;
     height: 100px;
-    background-color: #fff;
+    background-color: var(--white);
     border-radius: 10px;
-    box-shadow: 0px 2px 8px #00000010;
+    box-shadow: var(--shadow-sm);
 
     & .sessionAverageContainer {
         display: flex;
@@ -71,5 +78,20 @@
         font-size: 0.9rem;
         font-weight: 400;
         color: var(--highlight-black-800);
+    }
+}
+
+@media (max-width: 380px) {
+    .dailyAverage {
+        width: 100%;
+    }
+
+    .sessionAverage {
+        width: 100%;
+    }
+
+    .averageRow {
+        flex-direction: column;
+        gap: 0.75rem;
     }
 }

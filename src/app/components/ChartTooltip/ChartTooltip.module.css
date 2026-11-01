@@ -1,0 +1,40 @@
+.tooltip {
+    background: var(--white);
+    border: 1px solid var(--primary-offwhite-400);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    padding: 8px 12px;
+    min-width: 130px;
+}
+
+.label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--highlight-black-500);
+    margin-bottom: 4px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+}
+
+.name {
+    color: var(--highlight-black-700);
+}
+
+.value {
+    color: var(--highlight-black-500);
+    font-weight: 700;
+    margin-left: auto;
+}

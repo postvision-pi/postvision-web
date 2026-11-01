@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Loader from "./Loader/Loader";
+import { AppSettingsProvider } from "../context/AppSettingsContext";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
@@ -12,6 +13,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     return () => clearTimeout(timer);
   }, []);
 
-  if (loading) return <Loader />;
-  return <>{children}</>;
+  return (
+    <AppSettingsProvider>
+      {loading ? <Loader /> : children}
+    </AppSettingsProvider>
+  );
 } 

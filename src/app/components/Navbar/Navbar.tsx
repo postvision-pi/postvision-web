@@ -14,8 +14,7 @@ export default function Navbar() {
             <ul className={styles.navLinks}>
                 <li><Link href="#Sobre">Sobre o projeto</Link></li>
                 <li><Link href="#Aplicativo">Aplicativo</Link></li>
-                <li><Link href="#Resultado">Resultado</Link></li>
-                <li><Link href="#Futuro">Futuro</Link></li>
+                <li><Link href="#Analises">Análises e Gráficos</Link></li>
             </ul>
             <div className={styles.navButtons}>
                 <Link href="/Entrar" className={`${styles.login} ${styles.button}`}>Entrar</Link>

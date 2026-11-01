@@ -1,4 +1,9 @@
 
+.notificationWrapper {
+    position: relative;
+    display: flex;
+}
+
 .notificationContainer {
     display: flex;
     flex-direction: row;
@@ -8,7 +13,7 @@
 .notificationIcon {
     width: 1.8rem;
     height: 1.8rem;
-    color: var(--secundary-purple-500);
+    color: var(--brand-accent);
 }
 
 .notificationDot {
@@ -21,15 +26,17 @@
 
 .notificationDropdown {
     position: absolute;
-    top: 60px;
-    right: 100px;
+    top: 44px;
+    right: 0;
     width: 300px;
     border: 1px solid var(--secundary-purple-200);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     background-color: var(--white);
     padding: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     z-index: 1000;
+    transform-origin: top right;
+    animation: notificationDropdownIn 0.18s ease;
 
     & .notificationHeader {
         font-size: 1.1rem;
@@ -46,5 +53,46 @@
         &:last-child {
             border-bottom: none;
         }
+    }
+}
+
+@keyframes notificationDropdownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 600px) {
+    .notificationIcon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .notificationDropdown {
+        position: fixed;
+        top: 4.7rem;
+        left: 5%;
+        right: 5%;
+        width: auto;
+        max-width: 320px;
+        margin: 0 auto;
+        transform-origin: top center;
+        animation: notificationDropdownInMobile 0.2s ease;
+    }
+}
+
+@keyframes notificationDropdownInMobile {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

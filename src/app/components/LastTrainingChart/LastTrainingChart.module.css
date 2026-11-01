@@ -6,7 +6,9 @@
   min-height: 350px;
   max-height: 350px;
   background-color: var(--white);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
 
   & .title {
     font-size: 1.3rem;
@@ -24,6 +26,7 @@
 
 .chart {
   position: relative;
+  width: fit-content;
   transform: translate(0%, 20%);
 }
 
@@ -35,7 +38,7 @@
   min-width: 100px;
   font-size: 2rem;
   font-weight: bold;
-  color: #1b0066;
+  color: var(--brand-accent);
   align-items: center;
   justify-content: center;
   z-index: -1;
@@ -50,6 +53,7 @@
 
   .chart {
     position: relative;
+    width: 100%;
     transform: translate(0%, 10%);
   }
 

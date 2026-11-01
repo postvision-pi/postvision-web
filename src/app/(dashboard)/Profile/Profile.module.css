@@ -243,11 +243,32 @@
   gap: 10px;
 }
 
+@media (max-width: 900px) {
+  .mainContainer {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .reverseContainer {
+    flex-direction: column-reverse;
+    height: auto;
+    min-height: 100vh;
+    justify-content: flex-end;
+  }
+}
+
 @media (max-width: 600px) {
   .mainContainer {
     margin-left: 0;
     width: calc(100% - 1rem);
     padding-inline: 1rem;
+  }
+
+  .profileContainer {
+    width: 100%;
+    padding: 16px;
   }
 
   .statusContainer {

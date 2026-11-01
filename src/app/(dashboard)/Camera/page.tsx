@@ -290,7 +290,7 @@ export default function Camera() {
           />
         </div>
       </div>
-      <RightBoard />
+      <RightBoard hideStatsOnMobile />
     </div>
   );
 }

@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {};
-console.log('API URL no build:', process.env.NEXT_PUBLIC_API_URL)
+const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${process.env.API_INTERNAL_URL}/:path*`,
+      },
+    ];
+  },
+};
 
 export default nextConfig;

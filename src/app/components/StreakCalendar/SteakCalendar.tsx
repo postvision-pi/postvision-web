@@ -36,6 +36,17 @@ export default function StreakCalendar() {
           }}
         />
       </div>
+
+      <div className={styles.calendarLegend}>
+        <span className={styles.legendItem}>
+          <span className={`${styles.legendDot} ${styles.legendDotStreak}`}></span>
+          Dia treinado
+        </span>
+        <span className={styles.legendItem}>
+          <span className={`${styles.legendDot} ${styles.legendDotToday}`}></span>
+          Hoje
+        </span>
+      </div>
     </div>
   );
 }

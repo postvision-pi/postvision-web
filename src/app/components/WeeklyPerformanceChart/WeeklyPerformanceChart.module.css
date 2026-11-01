@@ -6,7 +6,9 @@
   min-height: 350px;
   max-height: 350px;
   background-color: var(--white);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
 
   & .title {
     font-size: 1.3rem;

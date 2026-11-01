@@ -30,14 +30,15 @@
 .centerText {
   position: absolute;
   display: flex;
-  top: 41%;
-  left: 30.5%;
+  top: 50%;
+  left: 38%;
   min-width: 100px;
   font-size: 1.6rem;
   font-weight: bold;
   color: #1b0066;
   align-items: center;
   justify-content: center;
+  transform: translate(-50%, -50%);
   z-index: 1;
 }
 

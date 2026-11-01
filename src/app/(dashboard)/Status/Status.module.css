@@ -86,6 +86,22 @@
   display: flex;
 }
 
+@media (max-width: 900px) {
+  .mainContainer {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .statusContainer {
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .reverseContainer {
+    flex-direction: column-reverse;
+  }
+}
+
 @media (max-width: 600px) {
 
 
@@ -94,9 +110,9 @@
     margin-left: 0px;
     max-width: 100%;
     min-width: 100%;
-    padding-inline: 0.2rem;
-    overflow-x: visible !important;
-    transform: scale(0.9);
+    width: 100%;
+    padding: 16px;
+    overflow-x: hidden;
   }
 
   .statusContainer {
@@ -114,12 +130,18 @@
     flex-direction: column-reverse !important;
   }
 
+  .titleExercices {
+    width: 100%;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
   .graphsWrap {
     width: 100% !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    overflow-x:visible !important;
+    overflow-x: visible !important;
 
   }
 

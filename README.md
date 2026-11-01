@@ -45,16 +45,14 @@ cp .env.example .env.local
 Preencha as variáveis:
 
 ```env
-# URL da API (postvision-api)
+# URL interna da API usada pelo proxy do Next.js
 # Em desenvolvimento: endereço local da API
-# Em produção: URL do serviço no Render
-NEXT_PUBLIC_API_URL=http://localhost:4000
+# Em produção: URL do serviço da API
+API_INTERNAL_URL=http://localhost:3001
 
 # Segredo JWT (deve ser igual ao configurado na postvision-api)
 JWT_SECRET=seu_jwt_secret_aqui
 ```
-
-> **Atenção:** `NEXT_PUBLIC_API_URL` é lida em **build time**. Sempre que alterar esse valor em produção, é necessário fazer um novo deploy para que a mudança entre em vigor.
 
 ### 3. Instale as dependências
 
@@ -72,7 +70,7 @@ O servidor será iniciado em:
 
 http://localhost:3000
 
-> Certifique-se de que a [postvision-api](https://github.com/renanzanettio/postvision-api) também está rodando localmente ou aponte `NEXT_PUBLIC_API_URL` para o serviço no Render.
+> Certifique-se de que a [postvision-api](https://github.com/renanzanettio/postvision-api) esteja disponível no endereço configurado em `API_INTERNAL_URL`.
 
 ---
 
