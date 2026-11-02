@@ -1,0 +1,20 @@
+# Complementa o compose.yaml da API. Execute a partir de postvision-api:
+# docker compose -f compose.yaml -f ../postvision-web/compose.web.yaml up --build -d --wait
+# Os caminhos de build são relativos ao PRIMEIRO arquivo, o da API.
+services:
+  web:
+    image: postvision-web:local
+    build:
+      context: ${WEB_CONTEXT:-../postvision-web}
+      args:
+        API_INTERNAL_URL: ${WEB_API_INTERNAL_URL:-http://api:4000}
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${WEB_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      JWT_SECRET: ${JWT_SECRET:?Defina o mesmo JWT_SECRET da API no .env}
+    depends_on:
+      api:
+        condition: service_healthy

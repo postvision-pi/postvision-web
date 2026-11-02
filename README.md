@@ -189,3 +189,9 @@ o modelo/WASM externo do MediaPipe e a permissão do navegador.
 
 Referências: [rewrites](https://nextjs.org/docs/app/api-reference/config/next-config-js/rewrites)
 e [standalone](https://nextjs.org/docs/app/api-reference/config/next-config-js/output).
+
+### Compose completo
+
+[O guia de Compose](docs/DOCKER-COMPOSE.md) explica as pastas irmãs, o ambiente da API,
+o banco local, o seed e os comandos para iniciar os três serviços. compose.web.yaml
+complementa o compose.yaml do backend sem substituir os arquivos da API.
