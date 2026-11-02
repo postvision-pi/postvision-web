@@ -48,7 +48,7 @@ Preencha as variáveis:
 # URL interna da API usada pelo proxy do Next.js
 # Em desenvolvimento: endereço local da API
 # Em produção: URL do serviço da API
-API_INTERNAL_URL=http://localhost:3001
+API_INTERNAL_URL=http://localhost:4000
 
 # Segredo JWT (deve ser igual ao configurado na postvision-api)
 JWT_SECRET=seu_jwt_secret_aqui
@@ -163,3 +163,29 @@ credenciais. O proxy continua protegendo Status, Profile e Settings. Os testes
 verificam assinatura/expiração, login, cadastro, restauração de preferências e
 histórico de sessões. O campo de gênero do cadastro envia `Outro`, aceito pela API.
 As telas públicas continuam claras mesmo quando o tema escuro está salvo.
+
+
+### Docker do web
+
+```bash
+docker build --build-arg API_INTERNAL_URL=http://host.docker.internal:4000 -t postvision-web:local .
+docker run --rm --name postvision-web -p 127.0.0.1:3000:3000 --env-file .env.local postvision-web:local
+```
+
+O exemplo acima conecta o container a uma API já executando no computador, usando
+Docker Desktop. Em Docker Engine no Linux, acrescente ao `docker run` a opção
+`--add-host=host.docker.internal:host-gateway`. Para API e banco também em containers,
+use o Compose da próxima etapa; ele constrói com o destino interno `http://api:4000`.
+
+`API_INTERNAL_URL` entra no **build** porque o Next serializa os rewrites na saída
+standalone. Mudar esse destino exige reconstruir a imagem; trocar apenas uma variável
+no container pronto não reconfigura esse encaminhamento. O navegador continua em
+`/api` e não precisa resolver `api:4000`. O segredo JWT entra apenas na execução.
+
+A imagem usa estágios e usuário sem privilégios. Copia standalone, public e assets;
+`GET /health` verifica o processo web. A checagem da API/banco continua separada.
+O build usa o download de fontes Google já existente no projeto. A câmera mantém
+o modelo/WASM externo do MediaPipe e a permissão do navegador.
+
+Referências: [rewrites](https://nextjs.org/docs/app/api-reference/config/next-config-js/rewrites)
+e [standalone](https://nextjs.org/docs/app/api-reference/config/next-config-js/output).
