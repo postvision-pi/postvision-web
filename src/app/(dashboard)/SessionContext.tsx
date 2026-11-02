@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/set-state-in-effect -- Carrega dados externos após hidratação. */
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from "react";
 import { apiGetSessionStatsByUserId } from "@/lib/api";
 import { useUser } from "./UserContext";
 
@@ -46,13 +47,15 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     const [stats, setStats] = useState<SessionStats | null>(null);
     const [loading, setLoading] = useState(true);
 
-    async function fetchStats() {
-        if (!usuario?.id_usuario) return;
+    const userId = usuario?.id_usuario;
+
+    const fetchStats = useCallback(async () => {
+        if (!userId) return;
 
         setLoading(true);
 
         try {
-            const res = await apiGetSessionStatsByUserId(usuario.id_usuario);
+            const res = await apiGetSessionStatsByUserId(userId);
             const data = await res.json();
             setStats(data);
         } catch (error) {
@@ -60,12 +63,12 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         } finally {
             setLoading(false);
         }
-    }
+    }, [userId]);
 
     useEffect(() => {
-        if (!usuario?.id_usuario) return;
+        if (!userId) return;
         fetchStats();
-    }, [usuario?.id_usuario]);
+    }, [fetchStats, userId]);
 
     // "weekly" só olha os últimos 7 dias, então também checa "monthly"
     // e a duração média antes de dizer que o usuário nunca treinou.

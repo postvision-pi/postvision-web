@@ -123,3 +123,16 @@ npm run type-check
 `/api`, encaminhado pelo Next.js para `API_INTERNAL_URL`. No `.env.local`, defina a
 porta em que sua API está executando (por exemplo, `http://localhost:4000`).
 Mantenha o mesmo `JWT_SECRET` da API. Não copie o `.env.local` para o Git.
+
+
+### Lint
+
+```bash
+npm run lint
+npm run lint:fix
+```
+
+ESLint usa a configuração flat do Next.js 16 e reprova erros e avisos. As exceções
+locais dos providers permitem restaurar dados externos após a hidratação. As regras
+de dependências dos efeitos continuam ativas. Os tipos dos landmarks e do relatório
+substituem os `any` existentes sem retirar o relatório ou outras funcionalidades.

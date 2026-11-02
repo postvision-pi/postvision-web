@@ -10,6 +10,11 @@ import HistoryModal from "@/app/components/HistoryModal/HistoryModal";
 
 const SUPPORT_EMAIL = "analisepostural@gmail.com";
 
+interface ReportSession {
+  date: string;
+  report?: { correctReps?: number; incorrectReps?: number; averageAccuracy?: number };
+}
+
 type CacheStatus = "idle" | "clearing" | "done";
 type DownloadStatus = "idle" | "loading" | "error";
 
@@ -57,7 +62,7 @@ export default function Settings() {
       ]);
 
       const stats = statsRes.ok ? await statsRes.json() : null;
-      const sessions = sessionsRes.ok ? await sessionsRes.json() : [];
+      const sessions: ReportSession[] = sessionsRes.ok ? await sessionsRes.json() : [];
 
       const lines: string[] = [];
       lines.push("RELATÓRIO DE DESEMPENHO — POSTVISION");
@@ -84,8 +89,8 @@ export default function Settings() {
       if (Array.isArray(sessions) && sessions.length > 0) {
         sessions
           .slice()
-          .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
-          .forEach((session: any) => {
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .forEach((session) => {
             const date = new Date(session.date).toLocaleDateString("pt-BR");
             const correct = session.report?.correctReps ?? 0;
             const incorrect = session.report?.incorrectReps ?? 0;

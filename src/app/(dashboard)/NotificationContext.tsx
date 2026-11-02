@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect -- O provider sincroniza notificações com a API após a hidratação. */
 "use client";
 
 import {
@@ -5,6 +6,7 @@ import {
     useContext,
     useEffect,
     useState,
+    useCallback,
     ReactNode
 } from "react";
 
@@ -49,16 +51,18 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const userId = user?.id_usuario;
+
     // Buscar notificações
-    const refresh = async () => {
-    if (!user?.id_usuario) {
+    const refresh = useCallback(async () => {
+    if (!userId) {
         setLoading(false);
         return;
     }
 
     setLoading(true);
     try {
-        const res = await apiGetAllNotifications(user.id_usuario);
+        const res = await apiGetAllNotifications(userId);
         const data: Notification[] = await res.json();
         setNotifications(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -66,7 +70,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     } finally {
         setLoading(false);
     }
-};
+}, [userId]);
 
     // Marcar como lida (otimista)
     const markAsRead = async (id: string) => {
@@ -102,12 +106,12 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
     //  carregar quando usuário muda
     useEffect(() => {
-        if (user?.id_usuario) {
+        if (userId) {
             refresh();
         } else {
             setLoading(false);
         }
-    }, [user]);
+    }, [refresh, userId]);
 
     return (
         <NotificationContext.Provider

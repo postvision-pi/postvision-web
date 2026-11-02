@@ -5,6 +5,7 @@ import {
   FilesetResolver,
   PoseLandmarker,
   DrawingUtils,
+  type NormalizedLandmark,
 } from "@mediapipe/tasks-vision";
 import styles from "./Camera.module.css";
 import RightBoard from "../../components/RightBoard/RightBoard";
@@ -20,7 +21,7 @@ export default function Camera() {
     let animationFrameId: number;
 
     // Helpers to evaluate posture
-    const getPoint = (lm: any[], idx: number) => ({
+    const getPoint = (lm: NormalizedLandmark[], idx: number) => ({
       x: lm[idx].x,
       y: lm[idx].y,
     });
@@ -48,7 +49,7 @@ export default function Camera() {
       p2: { x: number; y: number }
     ) => ({ x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 });
 
-    const evaluatePosture = (lm: any[]) => {
+    const evaluatePosture = (lm: NormalizedLandmark[]) => {
       const msgs: string[] = [];
       // indices: left shoulder 11, right shoulder 12, left hip 23, right hip 24, left knee 25, right knee 26, left ankle 27, right ankle 28
       const hasRight = lm[24] && lm[26] && lm[28];

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect -- A leitura do localStorage acontece no cliente após a hidratação. */
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";

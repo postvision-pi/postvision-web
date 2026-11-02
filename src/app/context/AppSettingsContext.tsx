@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect -- Restaura preferências do localStorage após hidratação. */
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";

@@ -137,7 +137,7 @@ export default function Entrar() {
           </div>
 
           <div className={styles.loginAccountLink}>
-            Não tem conta? <a href="/Cadastro">Cadastrar</a>
+            Não tem conta? <Link href="/Cadastro">Cadastrar</Link>
           </div>
 
           <button type="submit" className={styles.loginButton} disabled={loading}>
