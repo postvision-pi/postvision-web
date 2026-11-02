@@ -14,7 +14,7 @@ O **PostVision** é um aplicativo desenvolvido em **Next.js** que utiliza **vis�
 | **API** | Node.js + Express | Render |
 | **Banco de dados** | MongoDB | MongoDB Atlas |
 
-O frontend se comunica exclusivamente com a API hospedada no Render. A API é responsável por toda a lógica de negócio e acesso ao banco.
+O navegador chama `/api` no frontend. O Next.js encaminha essas chamadas para a API configurada em `API_INTERNAL_URL`, local ou hospedada. A API é responsável pela lógica de negócio e acesso ao MongoDB.
 
 ---
 
@@ -30,8 +30,8 @@ A aplicação está disponível em produção na Vercel:
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/renanzanettio/web-postvision.git
-cd web-postvision
+git clone https://github.com/postvision-pi/postvision-web.git
+cd postvision-web
 ```
 
 ### 2. Configure as variáveis de ambiente
@@ -57,7 +57,7 @@ JWT_SECRET=seu_jwt_secret_aqui
 ### 3. Instale as dependências
 
 ```bash
-npm install
+npm ci
 ```
 
 ### 4. Execute o projeto
@@ -70,7 +70,7 @@ O servidor será iniciado em:
 
 http://localhost:3000
 
-> Certifique-se de que a [postvision-api](https://github.com/renanzanettio/postvision-api) esteja disponível no endereço configurado em `API_INTERNAL_URL`.
+> Certifique-se de que a [postvision-api](https://github.com/postvision-pi/postvision-api) esteja disponível no endereço configurado em `API_INTERNAL_URL`.
 
 ---
 
@@ -106,3 +106,20 @@ Usado para análise de postura e detecção de landmarks corporais, possibilitan
 ### Iconify
 
 Biblioteca de ícones universais, integrada ao design do sistema para compor uma interface moderna e intuitiva.
+
+## IEC — ambiente e verificações
+
+Esta sequência parte da versão oficial sincronizada em `547cd7d` e mantém tema,
+tamanho da fonte, idioma, histórico, relatório e dashboard existentes.
+Use Node.js 24 e npm 11 ou superior. O gerenciador adotado para CI e Docker é npm;
+`package-lock.json` é o lockfile utilizado. Os arquivos de pnpm foram retirados.
+
+```bash
+npm ci
+npm run type-check
+```
+
+`npm run check` é um atalho para a checagem de tipos. O navegador continua usando
+`/api`, encaminhado pelo Next.js para `API_INTERNAL_URL`. No `.env.local`, defina a
+porta em que sua API está executando (por exemplo, `http://localhost:4000`).
+Mantenha o mesmo `JWT_SECRET` da API. Não copie o `.env.local` para o Git.
