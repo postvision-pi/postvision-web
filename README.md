@@ -148,3 +148,9 @@ npm run test:watch
 Vitest + Testing Library simulam o navegador e as respostas da API. O cliente mantém
 `/api`, incluindo a listagem de sessões usada no histórico e no relatório. Os testes
 cobrem armazenamento/remoção de token, UTF-8, JSON, Bearer e falhas HTTP/rede.
+
+
+Os providers verificam respostas HTTP e ignoram consultas antigas após sair da conta.
+O estado `hasSessions`, as médias e os componentes de carregamento/ausência de dados
+da versão sincronizada continuam disponíveis. O último treino usa `lastSession`,
+sem confundir uma sessão com a soma de vários treinos em um dia.

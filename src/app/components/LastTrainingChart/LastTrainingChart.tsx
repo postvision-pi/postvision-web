@@ -18,12 +18,12 @@ const COLORS = ["#1B0066", "#E3D93F"];
 export default function LastTrainingCharts() {
   const { stats, loading, hasSessions } = useSession();
 
-  // Usa o último treino da semana (entrada mais recente)
-  const lastSession = stats?.weekly[stats.weekly.length - 1];
+  // Usa a última sessão individual, preservando loading e estados vazios.
+  const lastSession = stats?.lastSession;
 
   const corretos = lastSession?.corretos ?? 0;
   const total = lastSession?.total ?? 0;
-  const incorretos = total - corretos;
+  const incorretos = lastSession?.incorretos ?? 0;
   const percentual = total > 0 ? (corretos / total) * 100 : 0;
 
   const chartData = [
@@ -31,7 +31,7 @@ export default function LastTrainingCharts() {
     { name: "Incorretos", value: incorretos },
   ];
 
-  // pode ter sessões antigas mas nenhuma nos últimos 7 dias (janela do "weekly")
+  // A última sessão também pode ser anterior à janela semanal.
   const hasRecentSession = hasSessions && !!lastSession && total > 0;
 
   return (
@@ -43,7 +43,7 @@ export default function LastTrainingCharts() {
           loading={loading}
           message={
             hasSessions
-              ? "Nenhum treino nos últimos dias. Realize uma nova análise para atualizar essa estatística."
+              ? "Nenhum treino com repetições disponível. Realize uma nova análise para atualizar essa estatística."
               : undefined
           }
         />

@@ -7,6 +7,8 @@ export default defineConfig({
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },
+  // Os testes verificam comportamento; o CSS de produção é processado pelo Next.
+  css: { postcss: { plugins: [] } },
   test: {
     environment: "jsdom",
     setupFiles: ["./tests/setup.ts"],
