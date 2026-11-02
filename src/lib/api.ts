@@ -28,7 +28,8 @@ export function clearToken() {
 export function decodeTokenPayload<T = Record<string, unknown>>(token: string): T | null {
   try {
     const payload = token.split('.')[1];
-    const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+    const binary = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+    const decoded = new TextDecoder().decode(Uint8Array.from(binary, char => char.charCodeAt(0)));
     return JSON.parse(decoded) as T;
   } catch {
     return null;
@@ -55,7 +56,6 @@ export async function apiLogin(email: string, password: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
   });
-  console.log(res)
   return res;
 }
 

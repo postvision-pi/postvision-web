@@ -136,3 +136,15 @@ ESLint usa a configuração flat do Next.js 16 e reprova erros e avisos. As exce
 locais dos providers permitem restaurar dados externos após a hidratação. As regras
 de dependências dos efeitos continuam ativas. Os tipos dos landmarks e do relatório
 substituem os `any` existentes sem retirar o relatório ou outras funcionalidades.
+
+
+### Testes unitários
+
+```bash
+npm test
+npm run test:watch
+```
+
+Vitest + Testing Library simulam o navegador e as respostas da API. O cliente mantém
+`/api`, incluindo a listagem de sessões usada no histórico e no relatório. Os testes
+cobrem armazenamento/remoção de token, UTF-8, JSON, Bearer e falhas HTTP/rede.
