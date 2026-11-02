@@ -1,36 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
 
-// Garante que a SECRET existe
-const JWT_SECRET = process.env.JWT_SECRET;
-
-if (!JWT_SECRET) {
-  throw new Error('JWT_SECRET não definido nas variáveis de ambiente');
+function redirectToLogin(request: NextRequest) {
+  const loginUrl = request.nextUrl.clone();
+  loginUrl.pathname = '/Entrar';
+  const response = NextResponse.redirect(loginUrl);
+  response.cookies.delete('token');
+  return response;
 }
 
-const SECRET = new TextEncoder().encode(JWT_SECRET);
-
 export async function proxy(request: NextRequest) {
-  const tokenCookie = request.cookies.get('token');
-  const token = tokenCookie?.value;
+  const token = request.cookies.get('token')?.value;
+  if (!token) return redirectToLogin(request);
 
-  // Se não houver token, redireciona para /Entrar
-  if (!token) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = '/Entrar';
-    return NextResponse.redirect(loginUrl);
+  // Lido na execução do servidor, sem gravar o segredo na imagem Docker.
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    console.error('JWT_SECRET não definido nas variáveis do servidor web');
+    return redirectToLogin(request);
   }
 
   try {
-    // Verifica se o token é válido
-    await jwtVerify(token, SECRET);
-  } catch (err) {
-    console.log('Token inválido:', err);
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = '/Entrar';
-    return NextResponse.redirect(loginUrl);
+    await jwtVerify(token, new TextEncoder().encode(secret), { algorithms: ['HS256'] });
+  } catch {
+    return redirectToLogin(request);
   }
-
   return NextResponse.next();
 }
 

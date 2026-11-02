@@ -111,7 +111,7 @@ export default function Cadastro() {
                 <option value="" disabled>Selecione</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
-                <option value="Outros">Outros</option>
+                <option value="Outro">Outro</option>
               </select>
             </div>
             <div className={styles.signUpInputGroup}>

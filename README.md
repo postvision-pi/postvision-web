@@ -154,3 +154,12 @@ Os providers verificam respostas HTTP e ignoram consultas antigas após sair da 
 O estado `hasSessions`, as médias e os componentes de carregamento/ausência de dados
 da versão sincronizada continuam disponíveis. O último treino usa `lastSession`,
 sem confundir uma sessão com a soma de vários treinos em um dia.
+
+
+### Autenticação, preferências e histórico
+
+O segredo JWT é lido na execução do servidor, permitindo construir a imagem sem
+credenciais. O proxy continua protegendo Status, Profile e Settings. Os testes
+verificam assinatura/expiração, login, cadastro, restauração de preferências e
+histórico de sessões. O campo de gênero do cadastro envia `Outro`, aceito pela API.
+As telas públicas continuam claras mesmo quando o tema escuro está salvo.
