@@ -11,7 +11,8 @@
     "check": "npm run type-check",
     "lint:fix": "eslint . --fix --max-warnings=0",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:smoke": "node scripts/smoke-web.mjs"
   },
   "dependencies": {
     "@iconify/react": "^6.0.0",

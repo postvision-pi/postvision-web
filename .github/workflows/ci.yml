@@ -1,0 +1,61 @@
+name: CI do Web
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint, tipos, testes e build Next.js
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      API_INTERNAL_URL: http://localhost:4000
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Instalar dependências pelo lockfile
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Checagem de tipos
+        run: npm run type-check
+      - name: Testes unitários
+        run: npm test
+      - name: Build de produção
+        run: npm run build
+
+  docker:
+    name: Build Docker e checagem HTTP do web
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      JWT_SECRET: segredo-descartavel-exclusivo-do-ci-web-postvision
+      SMOKE_WEB_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Construir imagem de produção
+        run: docker build --build-arg API_INTERNAL_URL=http://api:4000 -t postvision-web:ci .
+      - name: Executar web com segredo apenas no runtime
+        run: docker run -d --name postvision-web-ci -p 127.0.0.1:3000:3000 -e JWT_SECRET postvision-web:ci
+      - name: Conferir saúde, páginas, assets e proteção de rotas
+        run: node scripts/smoke-web.mjs
+      - name: Logs em caso de falha
+        if: failure()
+        run: docker logs postvision-web-ci
+      - name: Encerrar container de teste
+        if: always()
+        run: docker rm -f postvision-web-ci

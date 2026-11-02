@@ -195,3 +195,39 @@ e [standalone](https://nextjs.org/docs/app/api-reference/config/next-config-js/o
 [O guia de Compose](docs/DOCKER-COMPOSE.md) explica as pastas irmãs, o ambiente da API,
 o banco local, o seed e os comandos para iniciar os três serviços. compose.web.yaml
 complementa o compose.yaml do backend sem substituir os arquivos da API.
+
+
+### CI no GitHub
+
+O workflow CI do Web roda em push, pull request e execução manual pela aba Actions.
+O primeiro job instala pelo lockfile e executa lint, tipos, testes unitários e build
+Next.js. O segundo depende do primeiro: constrói a imagem Docker e confere por HTTP
+saúde, páginas, assets e proteção de rotas. Usa valores descartáveis próprios do CI,
+sem Secrets de produção, Atlas ou checkout do backend. O job Docker testa somente
+o web; o teste com os três serviços usa o guia de Compose.
+
+Para conferir um web executando, com JWT_SECRET no .env.local:
+
+```bash
+npm run test:smoke
+```
+
+Com o ambiente Compose ativo, execute a partir do web para ler o segredo da API:
+
+```bash
+node --env-file=../postvision-api/.env scripts/smoke-web.mjs
+```
+
+SMOKE_WEB_URL muda o endereço/porta da conferência. Para conferir também a API via
+/api/health, defina SMOKE_CHECK_API=true. No PowerShell:
+
+```powershell
+$env:SMOKE_CHECK_API = "true"
+node --env-file=../postvision-api/.env scripts/smoke-web.mjs
+Remove-Item Env:SMOKE_CHECK_API
+```
+
+A checagem HTTP usa token sintético apenas para o proxy, não login real no backend.
+Não publica imagem, não altera o deploy da Vercel e não faz gravações no banco.
+Depois do push, confira os dois jobs em Actions → CI do Web.
+As verificações executadas na preparação estão em [VALIDACAO.md](docs/VALIDACAO.md).
