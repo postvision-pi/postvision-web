@@ -12,6 +12,9 @@
   z-index: 1000;
   
   & .titleMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1.7rem;
     font-weight: bold;
     color: var(--brand-accent);
@@ -88,6 +91,15 @@
       transition: 200ms ease-in;
     }
   }
+}
+
+.logoImg {
+  width: 112px;
+  height: auto;
+}
+
+:global(html.dark) .logoImg {
+  filter: brightness(0) invert(1);
 }
 
 .menuIcon {

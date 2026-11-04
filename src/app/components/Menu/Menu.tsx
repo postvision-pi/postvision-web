@@ -3,6 +3,7 @@ import styles from './Menu.module.css';
 import { usePathname } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { clearToken } from '@/lib/api';
@@ -28,7 +29,9 @@ export default function Menu() {
                 <div className={styles.overlay} onClick={() => setIsMenuOpen(false)}></div>
             )}
             <div className={`${styles.menuContainer} ${isMenuOpen ? styles.menuContainerOpen : ''}`} onClick={e => e.stopPropagation()}>
-                <Link href="/" className={styles.titleMenu}>PostVision</Link>
+                <Link href="/" className={styles.titleMenu}>
+                    <Image src="/images/logo-maior.svg" alt="PostVision" width={112} height={49} className={styles.logoImg} />
+                </Link>
                 <div className={styles.menuLinks}>
                     <Link href="/Status" className={`${styles.link} ${pathname === '/Status' ? styles.active : ''}`}>
                         <Icon icon="gridicons:stats" className={styles.statsIcon} />Status

@@ -17,7 +17,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Image src={Logo} alt="ByteMe" width={84} height={84} />
+              <Image src={Logo} alt="Logo do PostVision" width={47} height={46} />
               <span className="font-bold text-white">PostVision</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">

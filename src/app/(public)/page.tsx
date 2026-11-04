@@ -4,7 +4,6 @@ import styles from "./home.module.css";
 import Navbar from "../components/Navbar/Navbar";
 import MobileHomeScreen from '@/../public/images/mobile-home-screen.png';
 import { Icon } from '@iconify/react';
-import LogoMaior from '@/../public/images/logo-maior.svg';
 import iconPostvision from '@/../public/images/logo-purple.svg';
 import { useState } from "react";
 import Celular from '@/../public/images/celular-postvision.png';
@@ -89,7 +88,7 @@ export default function Home() {
 
             <div className={`${styles.cardAbout} hover:scale-105 transition-transform duration-300`}>
               <div className={styles.icon}>
-                <Image src={iconPostvision} alt="icone do PostVision" />
+                <Image src={iconPostvision} alt="Ícone do PostVision" width={32} height={31} />
               </div>
               <p className={styles.titleCard}>Correção automática</p>
               <p className={styles.descriptionCard}>Obtenha feedback em tempo real sobre sua postura durante os exercícios.</p>
